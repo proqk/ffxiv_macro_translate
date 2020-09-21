@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>매크로 변환기</title>
+	<style>
+		html, textarea {font-size:10pt;}
+		input {padding:8px 18px; margin:4px 4px 4px 0px;}
+		div.input{
+			display: inline-block;
+			vertical-align: top;
+		}
+		div.updates{
+			margin-left: 10px;
+			display: block;
+		}
+		div#version{
+			font-size: 14pt;
+			margin-bottom: 30px;
+		}
+		span#version{
+			font-size: 20pt;
+			color:#6229d3;
+		}
+		div#note-title{
+			font-size: 14pt;
+		}
+		div#note>ul{
+			font-size: 12pt;
+		}
+		div#note>ul>li{
+			margin: 10px;
+		}
+		div#note>ul>ul{
+			font-size: 10pt;
+		}
+		div#footer{
+			position: absolute;
+			bottom: 10px;
+		}
+		div#contact>p{
+			margin: 8px 0px;
+		}
+		div#contact>p::before{
+			width: 10px;
+			height: 50px;
+			margin-right: 5px;
+			background: blue;
+			content: "-";
+		}
+	</style>
+	<script>
+		var data = [
+        // *. 작업 스킬
+		,{en:"Groundwork", ko:"밑작업", jp: "下地作業"}
+		,{en:"Standard Synthesis", ko:"중급 작업", jp: "中級作業"}
+		,{en:"Careful Synthesis", ko:"모범 작업", jp: "模範作業"}
+		,{en:"Rapid Synthesis", ko:"강행 작업", jp: "突貫作業"}
+		,{en:"Flawless Synthesis", ko:"견실한 작업", jp: "堅実作業"}
+		,{en:"Piece by Piece", ko:"꾸준한 진척", jp: "ピース・バイ・ピース"}
+		,{en:"Focused Synthesis", ko:"주시 작업", jp: "注視作業"}
+		,{en:"Intensive Synthesis", ko:"집중 작업", jp: "集中作業"}
+		,{en:"Veneration", ko:"공경", jp: "ヴェネレーション"}
+		,{en:"Brand of the Elements", ko:"원소의 인장", jp: "ブランド・オブ・エレメンタル"}
+		,{en:"Name of the Elements", ko:"원소의 예술", jp: "アート・オブ・エレメンタル"}
+        // *. 가공 스킬
+		,{en:"Standard Touch", ko:"중급 가공", jp: "中級加工"}
+		,{en:"Hasty Touch", ko:"성급한 손길", jp: "ヘイスティタッチ"}
+		,{en:"Byregot's Blessing", ko:"비레고의 축복", jp: "ビエルゴの祝福"}
+		,{en:"Precise Touch", ko:"집중 가공", jp: "集中加工"}
+		,{en:"Byregot's Brow", ko:"비레고의 기교", jp: "ビエルゴの技巧"}
+		,{en:"Patient Touch", ko:"전념 가공", jp: "専心加工"}
+		,{en:"Prudent Touch", ko:"절약 가공", jp: "倹約加工"}
+		,{en:"Focused Touch", ko:"주시 가공", jp: "注視加工"}
+		,{en:"Preparatory Touch", ko:"밑가공", jp: "下地加工"}
+		,{en:"Trained Eye", ko:"장인의 날랜손",  jp: "匠の早業"}
+		,{en:"Trained Instinct", ko:"장인의 억짓손", jp: "匠の荒業"}
+		// *. 기타 스킬
+		,{en:"Inner Quiet", ko:"정신 집중", jp: "インナークワイエット"}
+		,{en:"Reflect", ko:"진가", jp: "真価"}
+		,{en:"\"Ingenuity\"", ko:"\"독창적 발상\"", jp: "工面算段"}
+		,{en:"Ingenuity", ko:"\"독창적 발상\"", jp: "工面算段"}
+		,{en:"Great Strides", ko:"장족의 발전", jp: "グレートストライド"}
+		,{en:"Waste Not II", ko:"장기 절약", jp: "倹約II"}
+		,{en:"Waste Not", ko:"근검절약", jp: "倹約"}
+		,{en:"Innovation", ko:"혁신", jp:"イノベーション"}
+		,{en:"\"Manipulation\"", ko:"\"교묘한 손놀림\"", jp: "マニピュレーション"}
+		,{en:"Manipulation", ko:"\"교묘한 손놀림\"", jp: "マニピュレーション"}
+		,{en:"Master's Mend", ko:"능숙한 땜질", jp: "マスターズメンド"}
+		,{en:"Tricks of the Trade", ko:"비결", jp: "秘訣"}
+		,{en:"\"Observe\"", ko:"\"경과 관찰\"", jp: "経過観察"}
+		,{en:"Observe", ko:"\"경과 관찰\"", jp: "経過観察"}
+		,{en:"Muscle Memory", ko:"확신", jp: "確信"}
+		,{en:"Reuse", ko:"재사용", jp: "リユース"}
+        ,{en:"Delicate Synthesis", ko:"정밀 작업", jp: "精密作業"}	
+        
+        ,{en:"Basic Synthesis", ko:"작업", jp: "作業"}
+        ,{en:"Basic Touch", ko:"가공", jp: "加工"}
+		];
+		function Trans(lang, lang2) {
+            var txt = document.getElementById("transTxt").value;
+			for(var d in data) {
+                if(lang == "ko" && lang2 == "en") txt = txt.split(data[d].ko).join(data[d].en);
+                if(lang == "ko" && lang2 == "jp") txt = txt.split(data[d].ko).join(data[d].jp);
+                if(lang == "en" && lang2 == "jp") txt = txt.split(data[d].en).join(data[d].jp);
+                if(lang == "en" && lang2 == "ko") txt = txt.split(data[d].en).join(data[d].ko);
+                if(lang == "jp" && lang2 == "ko") txt = txt.split(data[d].jp).join(data[d].ko);
+                if(lang == "jp" && lang2 == "en") txt = txt.split(data[d].jp).join(data[d].en);
+            }
+			document.getElementById("transMacro").value = txt;
+		};
+	</script>
+</head>
+
+<body>
+	<div id="body">
+		<div class="input">
+			<b>## 번역할 매크로</b>
+			<br/>
+			<br/>
+			<textarea id="transTxt" cols="55" rows="25"></textarea>
+			<br/>
+        </div>		
+        <div class="input" style="padding:90px 8px;">
+            <!-- <b>출발 언어</b><br>
+            <input type="button" value="한국어" onclick="Trans2Kor()"/></br>
+            <input type="button" value="영어" onclick="Trans2Eng()"/><br>
+            <input type="button" value="일본어" onclick="Tran2Jpn()"/>
+            <br><br><br>
+            <b>번역 언어</b><br> -->
+            <!-- <input type="button" value="한국어로 번역" onclick="Trans()"/></br>
+            <input type="button" value="  영어로 번역 " onclick="Trans2Eng()"/><br>
+            <input type="button" value="일본어로 번역" onclick="Tran2Jpn()"/> -->
+            <input type="button" value="한국어->영어" onclick="Trans('ko', 'en')"/></br>
+            <input type="button" value="한국어->일본어" onclick="Trans('ko', 'jp')"/><br>
+            <input type="button" value="영어->일본어" onclick="Trans('en', 'jp')"/><br>
+            <input type="button" value="영어->한국어" onclick="Trans('en', 'ko')"/><br>
+            <input type="button" value="일본어->한국어" onclick="Trans('jp', 'ko')"/><br>
+            <input type="button" value="일본어->영어" onclick="Trans('jp', 'en')"/>
+		</div>
+		<div class="input">
+			<b>## 번역된 매크로</b>
+			<br/>
+			<br/>
+			<textarea id="transMacro" cols="55" rows="25"></textarea>
+			<br/>
+        </div>
+	</div>
+		<div id="contact">
+            <p><a href="https://github.com/proqk/ffxiv_macro_translate" target="_blank">깃허브 주소</a></p>
+			<p><a href="https://github.com/Jaehyuk-Lee/ffxiv-macro-eng2kor" target="_blank">이곳</a>의 번역기에서 일본어 번역을 추가한 번역기입니다</p>
+		</div>
+</body>
+</html>
